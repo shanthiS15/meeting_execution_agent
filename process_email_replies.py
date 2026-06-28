@@ -22,6 +22,7 @@ from database import (
     clear_execution_results
 )
 
+
 def process_email_replies():
 
     print("========== PROCESS EMAIL REPLIES STARTED ==========")
@@ -80,75 +81,81 @@ def process_email_replies():
 
         print("Reply Marked as Processed")
 
+    # -------------------------------------------------
+    # STEP 2 : Refresh Execution Results
+    # -------------------------------------------------
+
     print("\nRefreshing Execution Results...")
 
-clear_execution_results()
+    clear_execution_results()
 
-tasks = get_all_tasks()
+    tasks = get_all_tasks()
 
-for task in tasks:
+    for task in tasks:
 
-    task_name = task[1]
-    owner = task[2]
-    deadline = task[3]
-    status = task[4]
+        task_name = task[1]
+        owner = task[2]
+        deadline = task[3]
+        status = task[4]
 
-    workflow = generate_workflow_llm(
-        task_name,
-        deadline
-    )
+        workflow = generate_workflow_llm(
+            task_name,
+            deadline
+        )
 
-    plan = get_execution_plan_llm(
-        task_name,
-        deadline
-    )
+        plan = get_execution_plan_llm(
+            task_name,
+            deadline
+        )
 
-    followup = generate_followup_llm(
-        task_name,
-        owner,
-        deadline,
-        status
-    )
+        followup = generate_followup_llm(
+            task_name,
+            owner,
+            deadline,
+            status
+        )
 
-    email_sent = "No"
+        email_sent = "No"
 
-    # Send follow-up only if task is NOT completed
+        # Send follow-up only for incomplete tasks
 
-    if status != "Completed":
+        if status != "Completed":
 
-        email = get_email_by_name(owner)
+            email = get_email_by_name(owner)
 
-        if email:
+            if email:
 
-            subject = f"Task Follow-Up | {owner} | {task_name}"
+                subject = f"Task Follow-Up | {owner} | {task_name}"
 
-            send_email(
-                email,
-                subject,
-                followup
-            )
+                send_email(
+                    email,
+                    subject,
+                    followup
+                )
 
-            print("Follow-up Sent:", owner)
+                print("Follow-up Sent:", owner)
 
-            email_sent = "Yes"
+                email_sent = "Yes"
 
-    save_execution_result(
+        save_execution_result(
 
-        task_name=task_name,
+            task_name=task_name,
 
-        workflow=workflow,
+            workflow=workflow,
 
-        priority=plan["priority"],
+            priority=plan["priority"],
 
-        start_day=plan["start_day"],
+            start_day=plan["start_day"],
 
-        today_activity=plan["today_activity"],
+            today_activity=plan["today_activity"],
 
-        followup_message=followup,
+            followup_message=followup,
 
-        email_sent=email_sent
+            email_sent=email_sent
 
-    )
+        )
+
+    print("========== PROCESS EMAIL REPLIES FINISHED ==========")
 
 
 if __name__ == "__main__":
