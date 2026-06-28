@@ -79,29 +79,29 @@ def run_execution_cycle(meeting_text):
         deadline = task[3]
         status = task[4]
 
-        # Generate workflow
-        workflow = generate_workflow_llm(
-            task_name,
-            deadline
-        )
+        workflow = [
+            "Requirement Analysis",
+            "Planning",
+            "Implementation",
+            "Testing",
+            "Deployment"
+        ]
 
-        # Generate execution plan
-        plan = get_execution_plan_llm(
-            task_name,
-            deadline
-        )
+        priority = "Medium"
+        start_day = "Today"
+        today_activity = "Planning"
 
-        priority = plan["priority"]
-        start_day = plan["start_day"]
-        today_activity = plan["today_activity"]
+        followup_message = f"""
+            Please provide an update on the task '{task_name}'.
 
-        # Generate follow-up message
-        followup_message = generate_followup_llm(
-            task_name,
-            owner,
-            deadline,
-            status
-        )
+            Current Status: {status}
+            Deadline: {deadline}
+
+            Reply with:
+            • Completed
+            • In Progress
+            • Pending
+        """
 
         email_sent = "No"
 
