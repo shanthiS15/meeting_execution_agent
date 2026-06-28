@@ -115,13 +115,13 @@ def run_execution_cycle(meeting_text):
 
                 print(f"Follow-up generated for {owner}")
 
-                # send_email(
-                #     email,
-                #     subject,
-                #     followup_message
-                # )
+                send_email(
+                     email,
+                     subject,
+                     followup_message
+                 )
 
-                email_sent = "Generated"
+                email_sent = "Yes"
 
             else:
 
