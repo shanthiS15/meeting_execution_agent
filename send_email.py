@@ -1,12 +1,10 @@
 import os
-import smtplib
-from email.message import EmailMessage
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-EMAIL = os.getenv("EMAIL_ADDRESS")
-PASSWORD = os.getenv("EMAIL_APP_PASSWORD")
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 
 
 def send_email(receiver_email, subject, body):
@@ -14,20 +12,38 @@ def send_email(receiver_email, subject, body):
     print("========== SENDING EMAIL ==========")
     print("To:", receiver_email)
 
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = EMAIL
-    msg["To"] = receiver_email
-    msg.set_content(body)
+    url = "https://api.brevo.com/v3/smtp/email"
 
-    try:
-        with smtplib.SMTP("smtp-relay.brevo.com", 587) as smtp:
-            smtp.starttls()
-            smtp.login(EMAIL, PASSWORD)
-            smtp.send_message(msg)
+    headers = {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json"
+    }
 
-        print("✅ Email Sent Successfully")
+    payload = {
+        "sender": {
+            "name": "Meeting Execution Agent",
+            "email": "23d151@psgitech.ac.in"
+        },
+        "to": [
+            {
+                "email": receiver_email
+            }
+        ],
+        "subject": subject,
+        "textContent": body
+    }
 
-    except Exception as e:
-        print("❌ EMAIL ERROR:", e)
-        raise
+    response = requests.post(
+        url,
+        json=payload,
+        headers=headers,
+        timeout=30
+    )
+
+    print("Status Code:", response.status_code)
+    print(response.text)
+
+    response.raise_for_status()
+
+    print("✅ Email Sent Successfully")
