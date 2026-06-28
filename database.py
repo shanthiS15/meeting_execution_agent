@@ -1,7 +1,7 @@
 import sqlite3
 import json
 
-DATABASE_PATH = "data/meeting_agent.db"
+DATABASE_PATH = "meeting_agent.db"
 
 def create_database():
 
