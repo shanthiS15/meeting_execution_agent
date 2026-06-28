@@ -24,7 +24,8 @@ def send_email(receiver_email, subject, body):
 
         with smtplib.SMTP_SSL(
             "smtp.gmail.com",
-            465
+            465,
+            timeout=20
         ) as smtp:
 
             smtp.login(
@@ -39,3 +40,38 @@ def send_email(receiver_email, subject, body):
     except Exception as e:
 
         print("❌ Email Error:", e)
+
+def send_email(receiver_email, subject, body):
+
+    try:
+
+        msg = EmailMessage()
+
+        msg["Subject"] = subject
+        msg["From"] = EMAIL
+        msg["To"] = receiver_email
+
+        msg.set_content(body)
+
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465,
+            timeout=20
+        ) as smtp:
+
+            smtp.login(
+                EMAIL,
+                PASSWORD
+            )
+
+            smtp.send_message(msg)
+
+        print("✅ Email Sent")
+
+        return True
+
+    except Exception as e:
+
+        print("❌ Email Error:", e)
+
+        return False
