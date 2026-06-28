@@ -3,8 +3,10 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+
+print("BREVO KEY =", BREVO_API_KEY)
+print("KEY LENGTH =", len(BREVO_API_KEY) if BREVO_API_KEY else None)
 
 
 def send_email(receiver_email, subject, body):
