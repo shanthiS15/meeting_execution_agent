@@ -44,7 +44,7 @@ def home():
 
     emails_sent = sum(
         1 for r in results
-        if r["email_sent"] == "Yes"
+        if r["email_sent"] in ("Yes", "Generated")
     )
 
     return render_template(
@@ -147,7 +147,7 @@ def dashboard():
         emails_sent=sum(
             1
             for item in results
-            if item["email_sent"] == "Yes"
+            if item["email_sent"] in ("Yes", "Generated")
         )
 
     )
