@@ -1,31 +1,41 @@
 import smtplib
 from email.message import EmailMessage
+import os
 
-SENDER_EMAIL = "23d151@psgitech.ac.in"
+from dotenv import load_dotenv
 
-APP_PASSWORD = "vuml eypf bghz xewz"
+load_dotenv()
+
+EMAIL = os.getenv("EMAIL_ADDRESS")
+PASSWORD = os.getenv("EMAIL_APP_PASSWORD")
 
 
 def send_email(receiver_email, subject, body):
 
-    msg = EmailMessage()
+    try:
 
-    msg["Subject"] = subject
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = receiver_email
+        msg = EmailMessage()
 
-    msg.set_content(body)
+        msg["Subject"] = subject
+        msg["From"] = EMAIL
+        msg["To"] = receiver_email
 
-    with smtplib.SMTP_SSL(
-        "smtp.gmail.com",
-        465
-    ) as smtp:
+        msg.set_content(body)
 
-        smtp.login(
-            SENDER_EMAIL,
-            APP_PASSWORD
-        )
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com",
+            465
+        ) as smtp:
 
-        smtp.send_message(msg)
+            smtp.login(
+                EMAIL,
+                PASSWORD
+            )
 
-    print("Email Sent Successfully")
+            smtp.send_message(msg)
+
+        print("✅ Email Sent Successfully")
+
+    except Exception as e:
+
+        print("❌ Email Error:", e)
