@@ -1,0 +1,15 @@
+[00:01]
+
+Shanthi: I will complete UI Design by Friday.
+
+[00:05]
+
+Arun: I will finish Database Integration by Saturday.
+
+[00:10]
+
+Karthik: I will prepare the final project presentation by Monday.
+
+[00:15]
+
+Manager: Please make sure all tasks are completed before the review meeting.

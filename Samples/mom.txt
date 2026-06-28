@@ -1,0 +1,11 @@
+Minutes of Meeting
+
+Project Review Discussion
+
+Action Items:
+
+1. Shanthi is assigned UI Design and should complete it by Friday.
+
+2. Arun is responsible for Database Integration and should finish it by Saturday.
+
+3. Karthik will prepare the final presentation by Monday.

@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+
+<div class="text-center mb-5">
+
+    <h1 class="display-4 fw-bold">
+        🤖 Meeting-to-Execution Agent
+    </h1>
+
+    <p class="lead text-muted">
+        AI-Powered Meeting Automation & Task Execution Platform
+    </p>
+
+</div>
+
+<!-- Summary Cards -->
+
+<div class="row mb-5">
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card bg-primary text-white shadow h-100">
+
+            <div class="card-body text-center">
+
+                <h5>📋 Total Tasks</h5>
+
+                <h1>{{ total_tasks }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card bg-success text-white shadow h-100">
+
+            <div class="card-body text-center">
+
+                <h5>✅ Completed</h5>
+
+                <h1>{{ completed }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card bg-warning shadow h-100">
+
+            <div class="card-body text-center">
+
+                <h5>⏳ Pending</h5>
+
+                <h1>{{ pending }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card bg-danger text-white shadow h-100">
+
+            <div class="card-body text-center">
+
+                <h5>📧 Emails Sent</h5>
+
+                <h1>{{ emails_sent }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Main Content -->
+
+<div class="row">
+
+    <!-- Upload Card -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-lg p-4">
+
+            <h3 class="mb-4">
+
+                📄 Upload Meeting Transcript
+
+            </h3>
+
+            <form
+                method="POST"
+                action="/process"
+                enctype="multipart/form-data">
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-bold">
+
+                        Upload Transcript / Meeting Notes
+
+                    </label>
+
+                    <input
+                        class="form-control"
+                        type="file"
+                        name="transcript_file"
+                        accept=".txt,.docx,.pdf,.md">
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-bold">
+
+                        Or Paste Meeting Content
+
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        rows="10"
+                        name="meeting_text"
+                        placeholder="Paste meeting transcript, MoM or meeting notes here..."></textarea>
+
+                </div>
+
+                <button
+                    class="btn btn-primary btn-lg">
+
+                    🚀 Process Meeting
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg p-4">
+
+            <h3>
+
+                ⚡ Quick Actions
+
+            </h3>
+
+            <hr>
+
+            <a
+                href="/dashboard"
+                class="btn btn-outline-primary mb-3">
+
+                📋 Task Dashboard
+
+            </a>
+
+            <a
+                href="/workflow"
+                class="btn btn-outline-success mb-3">
+
+                ⚙ Execution Workflow
+
+            </a>
+
+            <a
+                href="/today"
+                class="btn btn-outline-warning mb-3">
+
+                📅 Today's Work Plan
+
+            </a>
+
+            <a
+                href="/followups"
+                class="btn btn-outline-danger mb-3">
+
+                📧 Follow-up Messages
+
+            </a>
+
+            <a
+                href="/team"
+                class="btn btn-outline-dark mb-3">
+
+                👥 Team Members
+
+            </a>
+
+            <a
+                href="/process_zoom"
+                class="btn btn-primary">
+
+                🎥 Process Zoom Transcript
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<hr class="mt-5">
+
+<footer class="text-center text-muted mb-3">
+
+    <p>
+
+        © 2026 Meeting-to-Execution Agent |
+        Developed using Flask, LangGraph, Groq & SQLite
+
+    </p>
+
+</footer>
+
+{% endblock %}

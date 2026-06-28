@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="fw-bold">
+
+        📧 Pending Follow-up Messages
+
+    </h1>
+
+    <p class="text-muted">
+
+        Automatically generated AI follow-up emails.
+
+    </p>
+
+</div>
+
+{% if followups %}
+
+<div class="row">
+
+{% for item in followups %}
+
+<div class="col-lg-6 mb-4">
+
+<div class="card shadow-lg h-100">
+
+<div class="card-header bg-danger text-white">
+
+<h4>
+
+👤 {{ item.owner }}
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+<b>📋 Task</b>
+
+</p>
+
+<div class="alert alert-primary">
+
+{{ item.task_name }}
+
+</div>
+
+<p>
+
+<b>📌 Status</b>
+
+</p>
+
+{% if item.status=="Completed" %}
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+{% elif item.status=="In Progress" %}
+
+<span class="badge bg-info">
+
+In Progress
+
+</span>
+
+{% else %}
+
+<span class="badge bg-warning text-dark">
+
+Pending
+
+</span>
+
+{% endif %}
+
+<hr>
+
+<p>
+
+<b>✉ Follow-up Email</b>
+
+</p>
+
+<div class="border rounded p-3 bg-light">
+
+{{ item.message }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="card shadow-lg border-0">
+
+<div class="card-body text-center p-5">
+
+<h1 class="display-4">
+
+✅
+
+</h1>
+
+<h2 class="text-success fw-bold">
+
+No Pending Follow-ups
+
+</h2>
+
+<p class="lead mt-3">
+
+Great job! All assigned tasks have been completed or no follow-up emails are currently required.
+
+</p>
+
+<hr>
+
+<p class="text-muted">
+
+The Meeting-to-Execution Agent will automatically generate new follow-up emails whenever new pending tasks are detected.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

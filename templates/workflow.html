@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="fw-bold">
+
+        ⚙ Execution Workflows
+
+    </h1>
+
+    <p class="text-muted">
+
+        AI-generated execution plans for every assigned task.
+
+    </p>
+
+</div>
+
+<div class="row">
+
+{% for item in workflows %}
+
+<div class="col-lg-6 mb-4">
+
+<div class="card shadow-lg h-100">
+
+<div class="card-header bg-primary text-white">
+
+<h4>
+
+{{ item.task_name }}
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+<b>🔥 Priority :</b>
+
+{% if item.priority=="High" %}
+
+<span class="badge bg-danger">
+
+{{ item.priority }}
+
+</span>
+
+{% elif item.priority=="Medium" %}
+
+<span class="badge bg-warning text-dark">
+
+{{ item.priority }}
+
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+
+{{ item.priority }}
+
+</span>
+
+{% endif %}
+
+</p>
+
+<p>
+
+<b>📅 Recommended Start :</b>
+
+{{ item.start_day }}
+
+</p>
+
+<p>
+
+<b>🎯 Today's Activity :</b>
+
+<span class="badge bg-info">
+
+{{ item.today_activity }}
+
+</span>
+
+</p>
+
+<hr>
+
+<h5>
+
+Workflow Steps
+
+</h5>
+
+<ul class="list-group">
+
+{% for step in item.workflow %}
+
+<li class="list-group-item">
+
+{% if step is mapping %}
+
+<b>{{ step["name"] }}</b>
+
+{% if "description" in step %}
+
+<br>
+
+<small class="text-muted">
+
+{{ step["description"] }}
+
+</small>
+
+{% endif %}
+
+{% else %}
+
+✅ {{ step }}
+
+{% endif %}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

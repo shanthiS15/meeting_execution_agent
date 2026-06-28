@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row mb-3">
+
+    <div class="col-md-4">
+
+        <input
+            type="text"
+            id="searchTask"
+            class="form-control"
+            placeholder="🔍 Search by Task, Owner or Status">
+
+    </div>
+
+</div>
+
+<h2 class="mb-4">
+    📋 Task Dashboard
+</h2>
+
+<div class="card p-4">
+
+<table class="table table-hover" id="taskTable">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+
+<th>Task</th>
+
+<th>Owner</th>
+
+<th>Deadline</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for task in tasks %}
+
+<tr>
+
+<td>{{ task[0] }}</td>
+
+<td>{{ task[1] }}</td>
+
+<td>{{ task[2] }}</td>
+
+<td>{{ task[3] }}</td>
+
+<td>
+
+{% if task[4]=="Completed" %}
+
+<span class="badge bg-success">
+Completed
+</span>
+
+{% elif task[4]=="Pending" %}
+
+<span class="badge bg-warning text-dark">
+Pending
+</span>
+
+{% elif task[4]=="In Progress" %}
+
+<span class="badge bg-info">
+In Progress
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary">
+Unknown
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<form action="/update_status" method="POST" class="d-flex">
+
+<input
+type="hidden"
+name="task_id"
+value="{{ task[0] }}">
+
+<select
+name="status"
+class="form-select me-2">
+
+<option value="Pending"
+{% if task[4]=="Pending" %}selected{% endif %}>
+Pending
+</option>
+
+<option value="In Progress"
+{% if task[4]=="In Progress" %}selected{% endif %}>
+In Progress
+</option>
+
+<option value="Completed"
+{% if task[4]=="Completed" %}selected{% endif %}>
+Completed
+</option>
+
+<option value="Unknown"
+{% if task[4]=="Unknown" %}selected{% endif %}>
+Unknown
+</option>
+
+</select>
+
+<button
+class="btn btn-primary">
+
+Update
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+document.getElementById("searchTask").addEventListener("keyup", function () {
+
+    let value = this.value.toLowerCase();
+
+    let rows = document.querySelectorAll("#taskTable tbody tr");
+
+    rows.forEach(function(row){
+
+        let text = row.innerText.toLowerCase();
+
+        if(text.indexOf(value) > -1){
+
+            row.style.display = "";
+
+        }
+
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
