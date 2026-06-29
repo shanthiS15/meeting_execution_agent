@@ -341,9 +341,11 @@ def process_zoom():
 @app.route("/check_email_replies")
 def check_email_replies():
 
+    print("========== GITHUB SCHEDULER ==========")
+
     process_email_replies()
 
-    return redirect("/dashboard")
+    return "Reply Checker Finished", 200
 
 if __name__ == "__main__":
 
