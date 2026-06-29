@@ -37,9 +37,9 @@ def run_execution_cycle(meeting_text):
 
 
     # Step 1 - Clear old tasks
-    # clear_tasks()
+    clear_tasks()
     clear_execution_results()
-    # clear_processed_replies()
+    clear_processed_replies()
 
     # Step 2 - Extract Tasks
     print("Extracting Tasks...")
