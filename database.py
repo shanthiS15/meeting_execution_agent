@@ -5,7 +5,12 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DATABASE_PATH = os.path.join(BASE_DIR, "data", "meeting_agent.db")
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
+# Create the data folder if it doesn't exist
+os.makedirs(DATA_DIR, exist_ok=True)
+
+DATABASE_PATH = os.path.join(DATA_DIR, "meeting_agent.db")
 
 def create_database():
 
