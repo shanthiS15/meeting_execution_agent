@@ -29,7 +29,7 @@ def get_latest_replies():
 
     status, messages = mail.search(
         None,
-        "ALL"
+        '(UNSEEN SUBJECT "Task Follow-Up")'
     )
 
     print("Search Status:", status)
