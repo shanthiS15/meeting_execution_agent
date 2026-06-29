@@ -1,0 +1,19 @@
+name: Reply Scheduler
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+  workflow_dispatch:
+
+jobs:
+  run_scheduler:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Call Reply Checker
+
+        run: |
+          curl -L https://meeting-execution-agent.onrender.com/check_email_replies
