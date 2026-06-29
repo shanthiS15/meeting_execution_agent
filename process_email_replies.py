@@ -1,6 +1,6 @@
 from email_reply_agent import get_latest_replies
 from reply_classifier import classify_reply
-
+from database import get_all_tasks
 from workflow_agent import (
     generate_workflow_llm,
     get_execution_plan_llm
@@ -26,6 +26,7 @@ from database import (
 def process_email_replies():
 
     print("========== PROCESS EMAIL REPLIES STARTED ==========")
+    print("Current Tasks in DB:", get_all_tasks())
 
     replies = get_latest_replies()
 
@@ -88,6 +89,8 @@ def process_email_replies():
     print("\nRefreshing Execution Results...")
 
     clear_execution_results()
+
+    print("Current Tasks:", get_all_tasks())
 
     tasks = get_all_tasks()
 
