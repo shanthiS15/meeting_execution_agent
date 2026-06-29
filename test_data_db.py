@@ -1,4 +1,3 @@
-from database import DATABASE_PATH
 import sqlite3
 
 conn = sqlite3.connect(DATABASE_PATH)

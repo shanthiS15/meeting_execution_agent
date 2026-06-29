@@ -347,8 +347,6 @@ def check_email_replies():
 
 if __name__ == "__main__":
 
-    start_auto_reply_checker()
-
     app.run(
         debug=True,
         use_reloader=False

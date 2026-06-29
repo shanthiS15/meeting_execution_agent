@@ -1,7 +1,11 @@
 import sqlite3
 import json
 
-DATABASE_PATH = "meeting_agent.db"
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATABASE_PATH = os.path.join(BASE_DIR, "data", "meeting_agent.db")
 
 def create_database():
 
